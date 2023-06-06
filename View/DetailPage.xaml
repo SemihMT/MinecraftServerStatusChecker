@@ -13,6 +13,8 @@
 
         </ViewModel:DetailPageVM>
     </Page.DataContext>
+
+
     <Grid>
 
     </Grid>
