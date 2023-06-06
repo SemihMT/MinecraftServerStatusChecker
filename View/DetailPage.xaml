@@ -7,15 +7,19 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DetailPage"
-      xmlns:ViewModel="clr-namespace:MinecraftServerStatusChecker.ViewModel">
+      xmlns:ViewModel="clr-namespace:MinecraftServerStatusChecker.ViewModel"
+      xmlns:converters="clr-namespace:MinecraftServerStatusChecker.View.Converters">
     <Page.DataContext>
         <ViewModel:DetailPageVM>
 
         </ViewModel:DetailPageVM>
     </Page.DataContext>
 
+	<Page.Resources>
+		<converters:Base64StringToImageConverter x:Key="Base64StringToBitmapImage"/>
+	</Page.Resources>
 
     <Grid>
-
+	<Image Source="{Binding CurrentServer.Base64Icon, Converter={StaticResource Base64StringToBitmapImage},FallbackValue=/Resources/Images/DefaultServerIcon.png}" />
     </Grid>
 </Page>

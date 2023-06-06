@@ -21,6 +21,7 @@
 
 	<Page.Resources>
 		<converters:Base64StringToImageConverter x:Key="Base64StringToBitmapImage"/>
+        <FontFamily x:Key="Minecraft">/Resources/Font/#Minecraft</FontFamily>
 	</Page.Resources>
 
     <Grid>
@@ -37,13 +38,7 @@
             <TextBox Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="Search" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
-
-        <ListBox Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Stretch" Background="Transparent"  >
-	        <i:Interaction.Triggers>
-		        <i:EventTrigger EventName="MouseDoubleClick">
-			        <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" />
-		        </i:EventTrigger>
-	        </i:Interaction.Triggers>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Stretch" Background="Transparent" SelectedItem="{Binding SelectedServer}" >
 	        <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0 0 0 10" >
@@ -62,7 +57,7 @@
                         <Image Source="{Binding Base64Icon, Converter={StaticResource Base64StringToBitmapImage},FallbackValue=/Resources/Images/DefaultServerIcon.png}" Width="64" Height="64"/>
 
                         <!-- Text -->
-                        <TextBlock Grid.Column="1" Text="{Binding HostName}" VerticalAlignment="Center" Margin="20 0 0 25"/>
+                        <TextBlock Grid.Column="1" FontSize="25" FontFamily="{StaticResource Minecraft}" Text="{Binding HostName}" VerticalAlignment="Center" Margin="20 0 0 25"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

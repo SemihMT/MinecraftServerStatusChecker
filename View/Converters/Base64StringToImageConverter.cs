@@ -11,20 +11,27 @@ namespace MinecraftServerStatusChecker.View.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string base64ImageString = value as string;
-            string base64Image = base64ImageString.Split(',')[1];
-            byte[] imageBytes = System.Convert.FromBase64String(base64Image);
-
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream ms = new MemoryStream(imageBytes))
+            if (base64ImageString != null)
             {
-                bitmapImage.BeginInit();
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = ms;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-            }
+                string base64Image = base64ImageString.Split(',')[1];
+                byte[] imageBytes = System.Convert.FromBase64String(base64Image);
 
-            return bitmapImage;
+                BitmapImage bitmapImage = new BitmapImage();
+                using (MemoryStream ms = new MemoryStream(imageBytes))
+                {
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                }
+
+                return bitmapImage;
+            }
+            else
+            {
+                return new BitmapImage(new Uri("/Resources/Images/DefaultServerIcon.png",UriKind.Relative));
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

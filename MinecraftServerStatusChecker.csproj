@@ -143,6 +143,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="Resources\Data\mc.hypixel.net.json" />
+    <Resource Include="Resources\Font\Minecraft.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

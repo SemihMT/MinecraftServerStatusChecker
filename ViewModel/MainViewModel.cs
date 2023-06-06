@@ -15,19 +15,52 @@ namespace MinecraftServerStatusChecker.ViewModel
     {
         public ServerListPage ServerListPage { get; set; }
         public DetailPage DetailPage { get; set; }
+
         private Page _currentPage;
-        public Page CurrentPage { get { return _currentPage; } set { _currentPage = value; OnPropertyChanged(nameof(CurrentPage)); } }
-        public RelayCommand SwitchPageCommand{ get; set; }  
+        public Page CurrentPage
+        {
+            get { return _currentPage; }
+            set
+            {
+                if (_currentPage != value)
+                {
+                    _currentPage = value;
+                    OnPropertyChanged(nameof(CurrentPage));
+                    UpdateCommandText();
+                }
+            }
+        }
+
+        private string _commandText = "SHOW DETAILS";
+        public string CommandText
+        {
+            get { return _commandText; }
+            set
+            {
+                if (_commandText != value)
+                {
+                    _commandText = value;
+                    OnPropertyChanged(nameof(CommandText));
+                }
+            }
+        }
+
+        public RelayCommand SwitchPageCommand { get; set; }
+
         public void SwitchPage()
         {
-            if(CurrentPage is ServerListPage)
+            if (CurrentPage is ServerListPage)
             {
-                MinecraftServer selecterdServer = (ServerListPage.DataContext as ServerListViewModel) .SelectedServer;
-                if(selecterdServer == null) return;
+                MinecraftServer selectedServer = (ServerListPage.DataContext as ServerListViewModel).SelectedServer;
+                if (selectedServer == null) return;
 
                 var serverDetailPage = DetailPage.DataContext as DetailPageVM;
-                serverDetailPage.CurrentServer = selecterdServer;
+                serverDetailPage.CurrentServer = selectedServer;
                 CurrentPage = DetailPage;
+            }
+            else
+            {
+                CurrentPage = ServerListPage;
             }
         }
 
@@ -38,6 +71,18 @@ namespace MinecraftServerStatusChecker.ViewModel
 
             CurrentPage = ServerListPage;
             SwitchPageCommand = new RelayCommand(SwitchPage);
+        }
+
+        private void UpdateCommandText()
+        {
+            if (CurrentPage is ServerListPage)
+            {
+                CommandText = "SHOW DETAILS";
+            }
+            else
+            {
+                CommandText = "GO BACK";
+            }
         }
     }
 }

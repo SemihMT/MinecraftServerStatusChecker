@@ -14,7 +14,7 @@ namespace MinecraftServerStatusChecker.ViewModel
         public MinecraftServer CurrentServer { get { return _currentServer; } set { _currentServer = value; OnPropertyChanged(nameof(CurrentServer)); } }
         public DetailPageVM()
         {
-            CurrentServer = new MinecraftServer();
+            CurrentServer = new MinecraftServer{ };
         }
     }
 }
