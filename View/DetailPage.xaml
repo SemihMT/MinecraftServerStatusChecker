@@ -20,10 +20,11 @@
 
     <Page.Resources>
         <converters:Base64StringToImageConverter x:Key="Base64StringToBitmapImage"/>
-        <converters:NullStringToPlayerDisabledConverter x:Key="NullToPlayerDisabledConverter" />
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullOrEmptyToVisibilityConverter" />
         <converters:NoPluginsFoundConverter x:Key="NoPluginsFoundConverter" />
         <converters:NoModsFoundConverter x:Key="NoModsFoundConverter" />
+        <converters:PlayerNameToImageUrlConverter x:Key="PlayerNameToImageUrl"/>
+        <converters:NoPlayersFoundConverter x:Key="NoPlayersFoundConverter"/>
         <FontFamily x:Key="Minecraft">/Resources/Font/#Minecraft</FontFamily>
     </Page.Resources>
 
@@ -33,7 +34,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="400"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -43,17 +44,26 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-           
+
 
             <StackPanel Grid.Column="1" Margin="10" Background="#88505050">
-	            <Image Grid.Column="0" Grid.Row="0" Source="{Binding CurrentServer.Base64Icon, Converter={StaticResource Base64StringToBitmapImage}}"
+                <Image Grid.Column="0" Grid.Row="0" Source="{Binding CurrentServer.Base64Icon, Converter={StaticResource Base64StringToBitmapImage}}"
 	                   Width="128" Height="128"/>
-	            <TextBlock Text="{Binding CurrentServer.HostName}" FontSize="20" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentServer.HostName}" FontSize="20" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
                 <TextBlock>
                     <Run Text="{Binding CurrentServer.IpAddress}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
                     <Run Text=":" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
                     <Run Text="{Binding CurrentServer.ServerPort}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
                 </TextBlock>
+                <ListView Background="Transparent" ItemsSource="{Binding CurrentServer.MessageOfTheDay.CleanMOTD}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+	                            <TextBlock Text="{Binding}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </Grid>
 
@@ -64,41 +74,56 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-	        <TextBlock Text="Players" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
+            <TextBlock Text="{Binding CurrentServer.Players.PlayerList, Converter={StaticResource NoPlayersFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
             <Border Grid.Row="0" Visibility="{Binding CurrentServer.Players.PlayerList, Converter={StaticResource NullOrEmptyToVisibilityConverter}}">
-	            <ListView Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Players.PlayerList}">
-                    <ListView.ItemTemplate>
+                <ListBox Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Players.PlayerList}">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Resources/Images/DefaultSkinHead32.png" Width="16" Height="16" Margin="0,0,5,0"/>
-                                <TextBlock Text="{Binding Converter={StaticResource NullToPlayerDisabledConverter}, TargetNullValue=Player query disabled by server}"
+                                <Image Source="{Binding Converter={StaticResource PlayerNameToImageUrl}}" Width="16" Height="16" Margin="0,0,5,0"/>
+                                <TextBlock Text="{Binding }"
                                            FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White" />
                             </StackPanel>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+	                <ListBox.ItemsPanel>
+		                <ItemsPanelTemplate>
+			                <StackPanel Orientation="Vertical"/>
+		                </ItemsPanelTemplate>
+	                </ListBox.ItemsPanel>
+                </ListBox>
             </Border>
 
-	        <TextBlock Grid.Row="1" Text="{Binding CurrentServer.Mods, Converter={StaticResource NoModsFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
+            <TextBlock Grid.Row="1" Text="{Binding CurrentServer.Mods, Converter={StaticResource NoModsFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
             <Border Grid.Row="1" Visibility="{Binding CurrentServer.Mods, Converter={StaticResource NullOrEmptyToVisibilityConverter}}">
-	            <ListView Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Mods.ModNames}">
-                    <ListView.ItemTemplate>
+                <ListBox Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Mods.ModNames}">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+	                <ListBox.ItemsPanel>
+		                <ItemsPanelTemplate>
+			                <StackPanel Orientation="Vertical"/>
+		                </ItemsPanelTemplate>
+	                </ListBox.ItemsPanel>
+                </ListBox>
             </Border>
 
-	        <TextBlock Grid.Row="2" Text="{Binding CurrentServer.Plugins, Converter={StaticResource NoPluginsFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
+            <TextBlock Grid.Row="2" Text="{Binding CurrentServer.Plugins, Converter={StaticResource NoPluginsFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
             <Border Grid.Row="2" Visibility="{Binding CurrentServer.Plugins, Converter={StaticResource NullOrEmptyToVisibilityConverter}}">
-	            <ListView Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Plugins.PluginNames}">
-                    <ListView.ItemTemplate>
+                <ListBox Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Plugins.PluginNames}">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+	                <ListBox.ItemsPanel>
+		                <ItemsPanelTemplate>
+			                <StackPanel Orientation="Vertical"/>
+		                </ItemsPanelTemplate>
+	                </ListBox.ItemsPanel>
+                </ListBox>
             </Border>
         </Grid>
     </Grid>

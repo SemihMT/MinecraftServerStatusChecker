@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using MinecraftServerStatusChecker.Model;
 using Newtonsoft.Json;
 
@@ -12,6 +13,7 @@ namespace MinecraftServerStatusChecker
     public class MinecraftServerRepository
     {
         private static List<MinecraftServer> _minecraftServers = new List<MinecraftServer>();
+    
 
         public static List<MinecraftServer> GetServers()
         {
@@ -34,9 +36,14 @@ namespace MinecraftServerStatusChecker
                 //list is empty, fill it
                 return _minecraftServers;
             }
-
-
-           
         }
+
+        public static void AddServerToList(string json)
+        {
+            MinecraftServer server = JsonConvert.DeserializeObject<MinecraftServer>(json);
+            _minecraftServers.Add(server);
+        }
+
+     
     }
 }

@@ -23,6 +23,7 @@ namespace MinecraftServerStatusChecker.View
         public DetailPage()
         {
             InitializeComponent();
+          
         }
     }
 }

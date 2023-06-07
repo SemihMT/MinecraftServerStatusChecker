@@ -35,8 +35,8 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-            <TextBox Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Search" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBox x:Name="searchBox" Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Command="{Binding SearchServerAddress}" CommandParameter="{Binding ElementName=searchBox,Path=Text}" Content="Search" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
         <ListBox Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center"  SelectedItem="{Binding SelectedServer}" Background="#55101010">
 	        <ListBox.ItemTemplate>

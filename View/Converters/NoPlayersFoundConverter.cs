@@ -5,18 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows;
 
 namespace MinecraftServerStatusChecker.View.Converters
 {
-    public class NullOrEmptyToVisibilityConverter : IValueConverter
+   public class NoPlayersFoundConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null )
-                return Visibility.Collapsed;
+            if (value is null)
+                return "Player querying is disabled by server.";
 
-            return Visibility.Visible;
+            return "Players:";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -5,18 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows;
 
 namespace MinecraftServerStatusChecker.View.Converters
 {
-    public class NullOrEmptyToVisibilityConverter : IValueConverter
+     public class PlayerNameToImageUrlConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null )
-                return Visibility.Collapsed;
+            if (value is string playerName)
+            {
+                // Modify the URL based on the player name
+                string modifiedUrl = "https://mc-heads.net/avatar/" + playerName + "/32.png";
+                return modifiedUrl;
+            }
 
-            return Visibility.Visible;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

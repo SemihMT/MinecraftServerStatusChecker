@@ -92,9 +92,11 @@
     <Compile Include="ViewModel\ServerListViewModel.cs" />
     <Compile Include="View\Converters\Base64StringToImageConverter.cs" />
     <Compile Include="View\Converters\NoModsFoundConverter.cs" />
+    <Compile Include="View\Converters\NoPlayersFoundConverter.cs" />
     <Compile Include="View\Converters\NoPluginsFoundConverter.cs" />
     <Compile Include="View\Converters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="View\Converters\NullStringToPlayerDisabledConverter.cs" />
+    <Compile Include="View\Converters\PlayerNameToImageUrlConverter.cs" />
     <Compile Include="View\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
