@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MinecraftServerStatusChecker.Model;
+using Newtonsoft.Json;
 
 namespace MinecraftServerStatusChecker.ViewModel
 {
@@ -32,17 +35,42 @@ namespace MinecraftServerStatusChecker.ViewModel
                     }
 
                     string json = await response.Content.ReadAsStringAsync();
-                    MinecraftServerRepository.AddServerToList(json);
 
-                    Servers.Clear();
-                    foreach (var server in MinecraftServerRepository.GetServers())
+                    MinecraftServer server = JsonConvert.DeserializeObject<MinecraftServer>(json);
+                    if (server.IpAddress == "127.0.0.1" && server.IsOnline == false)
                     {
-                        Servers.Add(server);
+                        //This server does not exist, ip address returned is localhost
+                        MinecraftServer failedServer = new MinecraftServer
+                        {
+                            IpAddress = "not found",
+                            HostName = serverAddress,
+                            IsOnline = false,
+                            
+                           
+                        };
+                        MinecraftServerRepository.AddServerToList(failedServer);
+                        //Update the observable collection
+                        Servers.Clear();
+                        foreach (var s in MinecraftServerRepository.GetServers())
+                        {
+                            Servers.Add(s);
+                        }
+                        return;
+                    }
+                    MinecraftServerRepository.AddServerToList(server);
+
+                    //Update the observable collection
+                    Servers.Clear();
+                    foreach (var s in MinecraftServerRepository.GetServers())
+                    {
+                        Servers.Add(s);
                     }
                 }
-                catch
+                catch (HttpRequestException ex)
                 {
                     // Handle exception
+                    Console.WriteLine(ex.Message);
+
                 }
             }
         }

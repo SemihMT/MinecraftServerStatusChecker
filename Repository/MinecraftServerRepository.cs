@@ -38,9 +38,9 @@ namespace MinecraftServerStatusChecker
             }
         }
 
-        public static void AddServerToList(string json)
+        public static void AddServerToList(MinecraftServer server)
         {
-            MinecraftServer server = JsonConvert.DeserializeObject<MinecraftServer>(json);
+           
             _minecraftServers.Add(server);
         }
 
