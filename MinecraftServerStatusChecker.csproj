@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Repository\MinecraftServerRepository.cs" />
+    <Compile Include="Repository\OnlineMinecraftServerRepository.cs" />
     <Compile Include="ViewModel\DetailPageVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ServerListViewModel.cs" />
@@ -148,7 +149,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="Resources\Data\mc.hypixel.net.json" />
+    <EmbeddedResource Include="Resources\Data\LocalServers.json" />
     <Resource Include="Resources\Font\Minecraft.ttf" />
   </ItemGroup>
   <ItemGroup>

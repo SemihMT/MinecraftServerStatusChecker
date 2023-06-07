@@ -10,6 +10,8 @@
       xmlns:ViewModel="clr-namespace:MinecraftServerStatusChecker.ViewModel"
       xmlns:converters="clr-namespace:MinecraftServerStatusChecker.View.Converters"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+
+    <!-- Page wide settings -->
     <Page.Background>
         <ImageBrush ImageSource="/Resources/Images/DirtBG.jpg"/>
     </Page.Background>
@@ -19,54 +21,62 @@
         </ViewModel:ServerListViewModel>
     </Page.DataContext>
 
-	<Page.Resources>
-		<converters:Base64StringToImageConverter x:Key="Base64StringToBitmapImage"/>
+    <Page.Resources>
+        <converters:Base64StringToImageConverter x:Key="Base64StringToBitmapImage"/>
         <FontFamily x:Key="Minecraft">/Resources/Font/#Minecraft</FontFamily>
-	</Page.Resources>
+        <BitmapImage x:Key="defaultServerIcon" UriSource="/Resources/Images/DefaultServerIcon.png" />
+    </Page.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Header row -->
+
             <RowDefinition Height="*"/>
             <!-- ListBox row -->
+
         </Grid.RowDefinitions>
 
 
         <!-- Header -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" Visibility="{Binding SearchBarVisible}">
             <TextBox x:Name="searchBox" Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Command="{Binding SearchServerAddress}" CommandParameter="{Binding ElementName=searchBox,Path=Text}" Content="Search" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center"  SelectedItem="{Binding SelectedServer}" Background="#55101010">
-	        <ListBox.ItemTemplate>
+
+        <!-- ListBox -->
+        <ListBox Width="580" Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center"  SelectedItem="{Binding SelectedServer}" Background="#55101010">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0 0 0 10" >
-                        
-	                    <Grid.ColumnDefinitions>
+
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-	                    </Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="256"/>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="128"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
 
                         <!-- Image -->
-                        <Image Source="{Binding Base64Icon, Converter={StaticResource Base64StringToBitmapImage},FallbackValue=/Resources/Images/DefaultServerIcon.png}" Width="64" Height="64"/>
+                        <Image Grid.Column="0" Grid.Row="0" Source="{Binding Base64Icon, Converter={StaticResource Base64StringToBitmapImage},TargetNullValue={StaticResource defaultServerIcon}}" Width="64" Height="64"/>
 
                         <!-- Text -->
-                        <TextBlock Grid.Column="1"  FontSize="25" FontFamily="{StaticResource Minecraft}" Text="{Binding HostName}" VerticalAlignment="Center" Margin="20 0 0 25" Foreground="#FFF7F7F7"/>
-                        <TextBlock Grid.Column="1"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding IpAddress}" VerticalAlignment="Center" Margin="20 0 0 -25" Foreground="#FFF7F7F7"/>
-                        <TextBlock Grid.Column="1"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding ServerPort}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 0 -25" Foreground="#FFF7F7F7"/>
-                        <TextBlock Grid.Column="2"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="Online: " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0 0 25" Foreground="#FFF7F7F7"/>
-                        <TextBlock Grid.Column="3"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding IsOnline}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 25" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="25" FontFamily="{StaticResource Minecraft}" Text="{Binding HostName, TargetNullValue=Minecraft server}" VerticalAlignment="Center" Margin="0 0 0 25" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding IpAddress}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 0" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding ServerPort}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="2" Grid.Row="1" FontSize="15" FontFamily="{StaticResource Minecraft}" Text="Online: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="4" Grid.Row="1" FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding IsOnline}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" Foreground="#FFF7F7F7"/>
 
-                        <TextBlock Grid.Column="2"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding Players.Online}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 0 -25" Foreground="#FFF7F7F7"/>
-                        <TextBlock Grid.Column="2"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="/" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0 0 -25" Foreground="#FFF7F7F7"/>
-                        <TextBlock Grid.Column="3"  FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding Players.MaxPlayers}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 0 -25" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="2"  Grid.Row="0" FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding Players.Online}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 25" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="3"  Grid.Row="0" FontSize="15" FontFamily="{StaticResource Minecraft}" Text="/" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 25" Foreground="#FFF7F7F7"/>
+                        <TextBlock Grid.Column="4"  Grid.Row="0" FontSize="15" FontFamily="{StaticResource Minecraft}" Text="{Binding Players.MaxPlayers}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 25" Foreground="#FFF7F7F7"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -28,10 +28,7 @@ namespace MinecraftServerStatusChecker.View.Converters
 
                 return bitmapImage;
             }
-            else
-            {
-                return new BitmapImage(new Uri("/Resources/Images/DefaultServerIcon.png",UriKind.Relative));
-            }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

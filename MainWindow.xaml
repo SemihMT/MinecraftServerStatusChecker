@@ -11,7 +11,12 @@
 		<ViewModel:MainViewModel></ViewModel:MainViewModel>
 	</Window.DataContext>
 	<Grid>
-		<Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
-		<Button VerticalAlignment="Bottom" Command="{Binding SwitchPageCommand}" Content="{Binding CommandText}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+		<Frame Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+		<Button Grid.Column="0" VerticalAlignment="Bottom" Command="{Binding SwitchPageCommand}" Content="{Binding CommandText}" />
+		<Button Grid.Column="1" VerticalAlignment="Bottom" Command="{Binding SwitchRepositoryCommand}" Content="{Binding CurrentRepoText}" />
 	</Grid>
 </Window>

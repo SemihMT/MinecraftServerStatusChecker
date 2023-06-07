@@ -22,7 +22,7 @@ namespace MinecraftServerStatusChecker
                 return _minecraftServers;
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var resourceName = "MinecraftServerStatusChecker.Resources.Data.mc.hypixel.net.json";
+            var resourceName = "MinecraftServerStatusChecker.Resources.Data.LocalServers.json";
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {

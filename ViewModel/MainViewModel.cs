@@ -15,7 +15,7 @@ namespace MinecraftServerStatusChecker.ViewModel
     {
         public ServerListPage ServerListPage { get; set; }
         public DetailPage DetailPage { get; set; }
-
+        public static bool UsingLocalRepository { get; private set; } = true;
         private Page _currentPage;
         public Page CurrentPage
         {
@@ -47,6 +47,22 @@ namespace MinecraftServerStatusChecker.ViewModel
 
         public RelayCommand SwitchPageCommand { get; set; }
 
+
+        private string _currentRepoText = "SWITCH TO ONLINE";
+        public string CurrentRepoText
+        {
+            get { return _currentRepoText; }
+            set
+            {
+                if (_currentRepoText != value)
+                {
+                    _currentRepoText = value;
+                    OnPropertyChanged(nameof(CurrentRepoText));
+                }
+            }
+        }
+        public RelayCommand SwitchRepositoryCommand { get; set; }
+
         public void SwitchPage()
         {
             if (CurrentPage is ServerListPage)
@@ -64,6 +80,16 @@ namespace MinecraftServerStatusChecker.ViewModel
             }
         }
 
+        public void SwitchRepository()
+        {
+            UsingLocalRepository = !UsingLocalRepository;
+
+            ServerListPage = new ServerListPage();
+            DetailPage = new DetailPage();
+            CurrentPage = ServerListPage;
+            UpdateRepoText();
+        }
+
         public MainViewModel()
         {
             ServerListPage = new ServerListPage();
@@ -71,6 +97,7 @@ namespace MinecraftServerStatusChecker.ViewModel
 
             CurrentPage = ServerListPage;
             SwitchPageCommand = new RelayCommand(SwitchPage);
+            SwitchRepositoryCommand = new RelayCommand(SwitchRepository);
         }
 
         private void UpdateCommandText()
@@ -82,6 +109,18 @@ namespace MinecraftServerStatusChecker.ViewModel
             else
             {
                 CommandText = "GO BACK";
+            }
+        }
+
+        private void UpdateRepoText()
+        {
+            if (UsingLocalRepository)
+            {
+                CurrentRepoText = "SWITCH TO ONLINE";
+            }
+            else
+            {
+                CurrentRepoText = "SWITCH TO LOCAL";
             }
         }
     }
