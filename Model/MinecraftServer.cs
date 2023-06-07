@@ -31,9 +31,9 @@ namespace MinecraftServerStatusChecker.Model
         [JsonProperty("gamemode")]
         public string GameMode { get; set; }
         [JsonProperty("plugins")]
-        public string[] Plugins { get; set; }
+        public Plugins Plugins { get; set; }
         [JsonProperty("mods")]
-        public string[] Mods { get; set; }
+        public Mods Mods { get; set; }
 
     }
 

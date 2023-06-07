@@ -38,21 +38,17 @@
             <TextBox Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="Search" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Background="Transparent" SelectedItem="{Binding SelectedServer}" >
+        <ListBox Grid.Row="1" ItemsSource="{Binding Servers}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center"  SelectedItem="{Binding SelectedServer}" Background="#55101010">
 	        <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0 0 0 10" >
-                        <Grid.Background>
-                            <SolidColorBrush Color="#55101010"/>
-                        </Grid.Background>
+                        
 	                    <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <!-- Image column -->
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
-                            <!-- Text column -->
-                        </Grid.ColumnDefinitions>
+	                    </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>

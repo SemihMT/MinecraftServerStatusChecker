@@ -91,6 +91,10 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ServerListViewModel.cs" />
     <Compile Include="View\Converters\Base64StringToImageConverter.cs" />
+    <Compile Include="View\Converters\NoModsFoundConverter.cs" />
+    <Compile Include="View\Converters\NoPluginsFoundConverter.cs" />
+    <Compile Include="View\Converters\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="View\Converters\NullStringToPlayerDisabledConverter.cs" />
     <Compile Include="View\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
@@ -156,7 +160,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\DefaultSkinHead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\DefaultSkinHead32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
