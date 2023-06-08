@@ -3,6 +3,7 @@ This the C# tool for the ToolDev course @ DAE
 
 Usage:
 The app is divided into two pages: one that shows an example list of minecraft server that are part of **Resources/Data/LocalServers.json** and another page that will initially show an empty list and a search bar.
+Switching repositories is done by pressing the "SWITCH TO X" button at the bottom of the page.
 
 The page that shows local data is exactly that. The program reads from the provided json array of minecraft servers and displays them. Note that the information displayed is most likely inaccurate by now.
 
