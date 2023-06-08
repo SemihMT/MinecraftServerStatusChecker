@@ -30,18 +30,19 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Header row -->
+	        <!-- Header row -->
+	        <RowDefinition Height="Auto"/> 
+	        <!-- ListBox row -->
+            <RowDefinition Height="*"/> 
 
-            <RowDefinition Height="*"/>
-            <!-- ListBox row -->
-
+           
         </Grid.RowDefinitions>
 
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" Visibility="{Binding SearchBarVisible}">
-            <TextBox x:Name="searchBox" Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <!-- demo.mcstatus.io is a good test server to test the features of the api, it returns players, mods and plugins -->
+	        <TextBox x:Name="searchBox" Width="200" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
             <Button Command="{Binding SearchServerAddress}" CommandParameter="{Binding ElementName=searchBox,Path=Text}" Content="Search" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
 

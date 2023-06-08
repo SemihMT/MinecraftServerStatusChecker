@@ -26,6 +26,7 @@ namespace MinecraftServerStatusChecker.ViewModel
                 if (string.IsNullOrEmpty(serverAddress))
                     return;
 
+             
                 string endpoint = "https://api.mcsrvstat.us/2/" + serverAddress;
 
                 using (HttpClient client = new HttpClient())

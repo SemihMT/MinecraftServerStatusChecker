@@ -76,7 +76,7 @@
 
             <TextBlock Text="{Binding CurrentServer.Players.PlayerList, Converter={StaticResource NoPlayersFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
             <Border Grid.Row="0" Visibility="{Binding CurrentServer.Players.PlayerList, Converter={StaticResource NullOrEmptyToVisibilityConverter}}">
-                <ListBox Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Players.PlayerList}">
+                <ListBox Margin="0,25,0,0" Background="#88505050" ItemsSource="{Binding CurrentServer.Players.PlayerList}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -96,7 +96,7 @@
 
             <TextBlock Grid.Row="1" Text="{Binding CurrentServer.Mods, Converter={StaticResource NoModsFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
             <Border Grid.Row="1" Visibility="{Binding CurrentServer.Mods, Converter={StaticResource NullOrEmptyToVisibilityConverter}}">
-                <ListBox Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Mods.ModNames}">
+                <ListBox Margin="0,25,0,0" Background="#88505050" ItemsSource="{Binding CurrentServer.Mods.ModNames}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White" />
@@ -112,7 +112,7 @@
 
             <TextBlock Grid.Row="2" Text="{Binding CurrentServer.Plugins, Converter={StaticResource NoPluginsFoundConverter}}" FontSize="18" FontFamily="{StaticResource Minecraft}" Foreground="White"/>
             <Border Grid.Row="2" Visibility="{Binding CurrentServer.Plugins, Converter={StaticResource NullOrEmptyToVisibilityConverter}}">
-                <ListBox Margin="0,25,0,0" Background="Transparent" ItemsSource="{Binding CurrentServer.Plugins.PluginNames}">
+                <ListBox Margin="0,25,0,0" Background="#88505050" ItemsSource="{Binding CurrentServer.Plugins.PluginNames}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" FontSize="16" FontFamily="{StaticResource Minecraft}" Foreground="White" />
